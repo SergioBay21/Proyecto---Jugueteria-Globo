@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Carrito de Padre e Hijos</h2>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Carrito ID</th>
+                <th>Total Carrito</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Propietario</th>  <!-- Cambiado a "Propietario" -->
+                <th>Tipo de Cuenta</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if detalles_carrito %}
+                {% for detalle in detalles_carrito %}
+                <tr>
+                    <td>{{ detalle.id_carrito }}</td>
+                    <td>{{ detalle.total }}</td>
+                    <td>{{ detalle.nombre_producto }}</td>
+                    <td>{{ detalle.precio_producto }}</td>
+                    <td>{{ detalle.nombre_propietario }}</td>  <!-- Mostrar el nombre del propietario -->
+                    <td>{{ detalle.tipo_cuenta }}</td>
+                    <td>
+                        <a href="{% url 'eliminar_producto_carrito' detalle.id_detalle_carrito %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="6" class="text-right"><strong>Total General:</strong></td>
+                    <td><strong>{{ total_general }}</strong></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center">No hay productos en los carritos del padre ni de los hijos.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <div class="text-right mt-3">
+        <a href="{% url 'realizar_venta' %}" class="btn btn-primary">Comprar Todo</a>
+    </div>
+</div>
+{% endblock %}

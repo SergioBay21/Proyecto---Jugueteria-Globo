@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Recibo de Venta</title>
+</head>
+<body>
+    <h1>Recibo de Venta</h1>
+    <p><strong>Fecha:</strong> {{ venta.fecha }}</p>
+    <p><strong>ID de Venta:</strong> {{ venta.id }}</p>
+
+    <h2>Detalles de la Venta</h2>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detalle in detalles %}
+            <tr>
+                <td>{{ detalle.id_producto.nombre }}</td>
+                <td>{{ detalle.id_producto.precio }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p><strong>Total:</strong> {{ carrito.total }}</p>
+</body>
+</html>

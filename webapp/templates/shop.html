@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+  
+{% endblock %}
+{% block content %}
+
+<section id="banner" style="background: #6db6d1;">
+    <div class="container">
+        <div class="swiper main-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide py-5">
+                    <div class="row banner-content align-items-center">
+                        <div class="img-wrapper col-md-5">
+                            <img src="{% static  '/images/banner-img.png' %}" class="img-fluid">
+                        </div>
+                        <div class="content-wrapper col-md-7 p-5 mb-5">
+                            <div class="secondary-font text-uppercase mb-4">Ahorra hasta el 20%</div>
+                            <h2 class="banner-title display-1 fw-normal">Donde la diversión no
+                                tiene límites</span>
+                            </h2>
+                            <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                                Compra Ahora
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide py-5">
+                    <div class="row banner-content align-items-center">
+                        <div class="img-wrapper col-md-5">
+                            <img src="{% static  '/images/banner-img4.png' %}" class="img-fluid">
+                        </div>
+                        <div class="content-wrapper col-md-7 p-5 mb-5">
+                            <div class="secondary-font text-uppercase mb-4">Ahorra hasta el 20%</div>
+                            <h2 class="banner-title display-1 fw-normal">Donde la diversión no
+                                tiene límites</span>
+                            </h2>
+                            <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                                Compra Ahora
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide py-5">
+                    <div class="row banner-content align-items-center">
+                        <div class="img-wrapper col-md-5">
+                            <img src="{% static  '/images/banner-img3.png' %}" class="img-fluid">
+                        </div>
+                        <div class="content-wrapper col-md-7 p-5 mb-5">
+                            <div class="secondary-font text-uppercase mb-4">Ahorra hasta el 20%</div>
+                            <h2 class="banner-title display-1 fw-normal">Donde la diversión no
+                                tiene límites</span>
+                            </h2>
+                            <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                                Compra Ahora
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination mb-5"></div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+        <h2 class="display-3 fw-normal">Productos</h2>
+    </div>
+</div>
+
+<div class="container">
+<section id="productos" class="my-5 overflow-hidden">
+    <div class="products-carousel swiper">
+      <div class="swiper-wrapper">
+        
+        <!-- Iterar sobre los productos en el contexto -->
+        {% for producto in productos %}
+        <div class="swiper-slide">
+          <div class="card position-relative" style="width: 300px; height: 300px;">
+            <!-- Imagen del producto -->
+            <a href="#" style="display: flex; justify-content: center; align-items: center; height: 200px;">
+              <img src="{{ producto.imagen.url }}" class="img-fluid rounded-4" alt="{{ producto.nombre }}" style="width: 200px; height: 200px; object-fit: cover;">
+            </a>
+            <div class="card-body p-0 text-center">
+              <a href="#">
+                <!-- Nombre del producto -->
+                <h3 class="text-primary" style="font-size: 14px;">{{ producto.nombre }}</h3>
+              </a>
+  
+              <!-- Precio del producto -->
+              <h4 class="secondary-font text-primary" style="font-size: 16px;">Q.{{ producto.precio }}</h4>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        
+      </div>
+      <div class="swiper-pagination" style="position: relative; margin-top: 10px; z-index: 0;"></div>
+    </div>
+  </section>
+</div>
+<section id="banner-2" class="my-3" style="background: #6db6d1;">
+    <div class="container">
+      <div class="row flex-row-reverse banner-content align-items-center">
+        <div class="img-wrapper col-12 col-md-6">
+          <img src="{% static  '/images/banner-img2.png' %}" class="img-fluid">
+        </div>
+        <div class="content-wrapper col-12 offset-md-1 col-md-5 p-5">
+          <div class="secondary-font text-uppercase mb-3 fs-4">Hasta 40% de descuento</div>
+          <h2 class="banner-title display-1 fw-normal">¡Las Mejores Ofertas!
+          </h2>
+          <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+            Compra Ahora
+            <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+              <use xlink:href="#arrow-right"></use>
+            </svg></a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonial">
+    <div class="container my-5 py-5">
+      <div class="row">
+        <div class="offset-md-1 col-md-10">
+          <div class="swiper testimonial-swiper">
+            <div class="swiper-wrapper">
+
+              <div class="swiper-slide">
+                <div class="row ">
+                  <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
+                    <p class="testimonial-content fs-2">"Tienen una gran variedad de juguetes educativos que fomentan la creatividad y el aprendizaje."</p>
+                    <p class="text-black">- Jose Ramírez</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="row ">
+                  <div class="col-2">
+                    <iconify-icon icon="ri:double-quotes-l" class="quote-icon"></iconify-icon>
+                  </div>
+                  <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
+                    <p class="testimonial-content fs-2">El servicio al cliente es excelente, siempre ayudan a encontrar el regalo perfecto.</p>
+                    <p class="text-black">- Carlos Maldonado</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="register" style="background: url('images/background-img.png') no-repeat;">
+    <div class="container ">
+      <div class="row my-5 py-5">
+        <div class="offset-md-3 col-md-6 my-5 ">
+          <h2 class="display-3 fw-normal text-center">Obten el 20% de descuento en tu primera compra</span>
+          </h2>
+          <form>
+            <div class="mb-3">
+              <input type="email" class="form-control form-control-lg" name="email" id="email"
+                placeholder="Ingresa tu dirección de Email">
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-lg rounded-1">Quiero el descuento</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

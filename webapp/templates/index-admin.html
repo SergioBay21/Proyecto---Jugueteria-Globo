@@ -1,0 +1,43 @@
+{% extends 'base-admin.html' %}
+{% block content %}
+<div class="container-fluid p-0">
+
+    <h1 class="h3 mb-3">Panel <strong>Administrador</strong></h1>
+
+    <div class="row">
+        <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+            <div class="card flex-fill">
+                <div class="card-header">
+
+                    <h5 class="card-title mb-0">Usuarios</h5>
+                </div>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th class="d-none d-xl-table-cell">Correo Electrónico</th>
+                            <th class="d-none d-xl-table-cell">Rol</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                </table>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 col-xxl-3 d-flex">
+            <div class="card flex-fill w-100">
+                <div class="card-header">
+
+                    <h5 class="card-title mb-0">Ventas Mensuales</h5>
+                </div>
+                <div class="card-body d-flex w-100">
+                    <div class="align-self-center chart chart-lg">
+                        <canvas id="chartjs-dashboard-bar"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

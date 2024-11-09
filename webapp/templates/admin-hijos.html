@@ -1,0 +1,109 @@
+{% extends 'base-admin.html' %}
+{% block content %}
+<h1 class="h3 mb-3">Control <strong>Hijos</strong></h1>
+<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#agregarHijoModal">
+    Agregar Hijo
+</button>
+<h2 class="h3 mb-3">Lista Hijos</h2>
+
+<!-- Modal para agregar hijo -->
+<div class="modal fade" id="agregarHijoModal" tabindex="-1" aria-labelledby="agregarHijoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agregarHijoModalLabel">Agregar Hijo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'agregar_hijo' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contraseña">Contraseña:</label>
+                        <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="padre">Seleccionar Padre:</label>
+                        <select class="form-control" id="padre" name="padre" required>
+                            {% for padre in padres %}
+                                <option value="{{ padre.id_cuenta }}">{{ padre.id_usuario.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre Hijo</th>
+            <th>Email Hijo</th>
+            <th>Nombre Padre</th>  <!-- Nueva columna para el nombre del padre -->
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for detalle in hijos_con_padres %}
+        <tr>
+            <td>{{ detalle.id_cuenta_hijo.id_usuario.nombre }}</td>
+            <td>{{ detalle.id_cuenta_hijo.id_usuario.email }}</td>
+            <td>{{ detalle.id_cuenta_padre.id_usuario.nombre }}</td> <!-- Mostrar el nombre del padre -->
+            <td>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarHijoModal{{ detalle.id_cuenta_hijo.id_cuenta }}">
+                    Editar
+                </button>
+                <form action="{% url 'eliminar_hijo' detalle.id_cuenta_hijo.id_cuenta %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+
+        <!-- Modal para editar hijo -->
+        <div class="modal fade" id="editarHijoModal{{ detalle.id_cuenta_hijo.id_cuenta }}" tabindex="-1" aria-labelledby="editarHijoModalLabel{{ detalle.id_cuenta_hijo.id_cuenta }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarHijoModalLabel{{ detalle.id_cuenta_hijo.id_cuenta }}">Editar Hijo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{% url 'editar_hijo' detalle.id_cuenta_hijo.id_cuenta %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ detalle.id_cuenta_hijo.id_usuario.nombre }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ detalle.id_cuenta_hijo.id_usuario.email }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contraseña">Contraseña:</label>
+                                <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

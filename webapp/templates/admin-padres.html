@@ -1,0 +1,111 @@
+{% extends 'base-admin.html' %}
+{% block content %}
+<h1 class="h3 mb-3">Control <strong>Padres</strong></h1>
+<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#agregarPadreModal">
+    Agregar Padre
+</button>
+<h2 class="h3 mb-3">Lista Padres</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cuenta in cuentas %}
+        <tr>
+            <td>{{ cuenta.id_usuario.nombre }}</td>
+            <td>{{ cuenta.id_usuario.email }}</td>
+            <td>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#infoModal{{ cuenta.id_cuenta }}">Información</button>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarPadreModal{{ cuenta.id_cuenta }}">Editar</button>
+            </td>
+        </tr>
+    
+        <!-- Modal Información -->
+        <div class="modal fade" id="infoModal{{ cuenta.id_cuenta }}" tabindex="-1" aria-labelledby="infoModalLabel{{ cuenta.id_cuenta }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="infoModalLabel{{ cuenta.id_cuenta }}">Información de {{ cuenta.id_usuario.nombre }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Email: {{ cuenta.id_usuario.email }}</p>
+                        <p>Hijos:</p>
+                            <ul>
+                                {% for detalle in cuenta.padres.all %}  <!-- Cambia esto según tu relación -->
+                                    <li>Nombre del Hijo: {{ detalle.id_cuenta_hijo.id_usuario.nombre }}</li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Editar -->
+        <div class="modal fade" id="editarPadreModal{{ cuenta.id_cuenta }}" tabindex="-1" aria-labelledby="editarPadreModalLabel{{ cuenta.id_cuenta }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarPadreModalLabel{{ cuenta.id_cuenta }}">Editar Padre</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{% url 'editar_padre' cuenta.id_cuenta %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ cuenta.id_usuario.nombre }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ cuenta.id_usuario.email }}" required>
+                            </div>
+                            <button type="submit" class="btn btn-warning">Actualizar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal para agregar padre -->
+<div class="modal fade" id="agregarPadreModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Padre</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'agregar_padre' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contraseña">Contraseña:</label>
+                        <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
